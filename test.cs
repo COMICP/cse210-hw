@@ -1,43 +1,137 @@
 using System;
+using System.IO; 
 
-static float math(int num1, int num2, string arg){
-    float ans;
-    if (arg == "add"){
-        ans = add(num1, num2);
+class Program
+{
+    static void Main(string[] args){
+        bool qui = false;
+        List<string> Entrys = new List<string>();
+        int choice;
+        string file = "jor.txt";
+
+
+        while (qui == false){
+
+
+            choice = takein();
+            
+
+            if (choice == 1){
+                string responce = wri();
+                Console.WriteLine(responce);
+
+                Entrys.Add(responce);
+
+            }
+
+
+            else if (choice == 2){
+                foreach (string choi in Entrys){
+                    Console.WriteLine(choi);
+                }
+
+            }
+
+
+            else if (choice == 3){
+                Console.WriteLine("What is the file");
+                string userfile = Console.ReadLine();
+                file = userfile;
+
+                string[] lines = System.IO.File.ReadAllLines(file);
+                foreach(string Line in lines){
+                    Entrys.Insert(0, Line);
+                }
+
+            }
+
+
+            else if (choice == 4){
+                Console.WriteLine("What is the file");
+                string userfile = Console.ReadLine();
+                file = userfile;
+                Console.WriteLine("Saving...");
+                
+
+                using (StreamWriter outputFile = new StreamWriter(file))
+                {
+                    foreach (string choi in Entrys){
+                        outputFile.WriteLine(choi);
+                    
+                    }
+                }
+                Console.WriteLine("saved");
+            }
+
+
+            else if (choice == 5){
+                qui = true;
+                Environment.Exit(choice);
+            
+            }
+
+
+            else{
+                Console.Write("Enter valid input.");
+            }
+            
+        }
+        
     }
-    else if (arg == "subtract"){
-        ans = sub(num1, num2);
+
+
+    static int takein(){
+        int cho;
+        choice("Please select one of the following choices:");
+        choice("1. Write");
+        choice("2. Display");
+        choice("3. Load");
+        choice("4. Save");
+        choice("5. Quit");
+        cho = int.Parse(Console.ReadLine()); 
+
+
+
+        return cho;
     }
-    else if (arg == "multiply"){
-        ans = mult(num1, num2);
+
+    static void choice(string msg){
+        Console.WriteLine(msg);
+
     }
-    else if (arg == "divide"){
-        ans = div(num1, num2);
+
+    static string getdate(){
+        DateTime now = DateTime.Now;
+
+        return now.ToString("ddd MMM %d, yyyy");
+
     }
-    return ans;
+
+    static string wri(){
+        string rez;
+        string prom;
+        Random rnd = new Random();
+        List<string> prrompts = new List<string>();
+
+        prrompts.Add("Who was the most interesting person I interacted with today?");
+        prrompts.Add("What was the best part of my day?");
+        prrompts.Add("How did I see the hand of the Lord in my life today?");
+        prrompts.Add("What was the strongest emotion I felt today?");
+        prrompts.Add("If I had one thing I could do over today, what would it be?");
+        prrompts.Add("What was the most beautifull thing you saw today.");
+
+        prom = prrompts[rnd.Next(5)];
+
+
+
+        choice(prom);
+        rez = Console.ReadLine();
+        string Dat = getdate();
+
+
+        return $"Date: {Dat} Prompt: '{prom}' Responce: '{rez}'";
+    }
 
 }
 
-
-static int add(int num1, int num2){
-    int ans = num1 + num2;
-    return ans;
-
-}
-static int sub(int num1, int num2){
-    int ans = num1 - num2;
-    return ans;
-}
-static int mult(int num1, int num2){
-    int ans = num1 * num2;
-    return ans;
-    
-}
-static int div(int num1, int num2){
-    int ans = num1 / num2;
-    return ans;
-    
-}
-
-int added = num1 + num2;
 

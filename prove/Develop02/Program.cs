@@ -5,71 +5,42 @@ class Program
 {
     static void Main(string[] args){
         bool qui = false;
-        List<string> Entrys = new List<string>();
+        Diary Journal = new Diary();
         int choice;
-        string file = "jor.txt";
+        string file ;
 
 
         while (qui == false){
 
-
             choice = takein();
             
-
             if (choice == 1){
-                string responce = wri();
+                Jor responce = wri();
                 Console.WriteLine(responce);
 
-                Entrys.Add(responce);
-
+                Journal.adding(responce);
             }
-
 
             else if (choice == 2){
-                foreach (string choi in Entrys){
-                    Console.WriteLine(choi);
-                }
-
+                Journal.openBook();
             }
-
 
             else if (choice == 3){
-                Console.WriteLine("What is the file");
-                string userfile = Console.ReadLine();
-                file = userfile;
-
-                string[] lines = System.IO.File.ReadAllLines(file);
-                foreach(string Line in lines){
-                    Entrys.Insert(0, Line);
-                }
-
+                Console.WriteLine("What is the file name? ");
+                file = Console.ReadLine();
+                Journal.readFrom(file);
             }
-
 
             else if (choice == 4){
-                Console.WriteLine("What is the file");
-                string userfile = Console.ReadLine();
-                file = userfile;
-                Console.WriteLine("Saving...");
-                
-
-                using (StreamWriter outputFile = new StreamWriter(file))
-                {
-                    foreach (string choi in Entrys){
-                        outputFile.WriteLine(choi);
-                    
-                    }
-                }
-                Console.WriteLine("saved");
+                Console.WriteLine("What is the file name? ");
+                file = Console.ReadLine();
+                Journal.saveTo(file);
             }
-
 
             else if (choice == 5){
                 qui = true;
-                Environment.Exit(choice);
-            
+                Environment.Exit(choice);           
             }
-
 
             else{
                 Console.Write("Enter valid input.");
@@ -78,6 +49,11 @@ class Program
         }
         
     }
+
+
+
+
+
 
 
     static int takein(){
@@ -107,7 +83,7 @@ class Program
 
     }
 
-    static string wri(){
+    static Jor wri(){
         string rez;
         string prom;
         Random rnd = new Random();
@@ -128,8 +104,13 @@ class Program
         rez = Console.ReadLine();
         string Dat = getdate();
 
+        Jor Entry = new Jor();
+        Entry._date = Dat;
+        Entry._prompt = prom;
+        Entry._responce = rez;
 
-        return $"Date: {Dat} Prompt: '{prom}' Responce: '{rez}'";
+
+        return Entry;
     }
 
 }
