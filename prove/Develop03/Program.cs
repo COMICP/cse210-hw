@@ -4,15 +4,12 @@ class Program
 {
     static void Main(string[] args)
     {
-        string ver = "This is a test verse to make sure all of the things are working in the program. This should be loaded without issue and have words gradually disappear.";
-        string refre = "Reference 1:1";
+        string bible = "bible.txt";
 
-        Scripture test = new Scripture();
-        test.setverse(ver);
-        test.setref(refre);
+
 
         Book TestBook = new Book();
-        TestBook.SetScripture(test);
+        TestBook.readFrom(bible);
 
         Memory output = new Memory();
         output.setOutput(TestBook.GetScripture());
@@ -24,23 +21,30 @@ class Program
 
             string count = output.wordsLeft();
 
+            output.memoryout();
+            Console.WriteLine("To continue press enter, to quit type 'quit', to save type 'save'");
+            input = Console.ReadLine();
+
+
+            
+            
+                
+
+            if (input == "quit"){
+                System.Environment.Exit(0);
+            }
+            else if (input == "save"){
+                TestBook.saveTo(bible);
+            }
+            else{
+                output.blankline();
+            }
+
+        
+
             if (count == "done"){
                 output.setOutput(TestBook.GetScripture());
             }
-            else{
-                output.memoryout();
-                Console.WriteLine("To continue press enter, to quit type 'quit'");
-                input = Console.ReadLine();
-
-                if (input == "quit"){
-                    System.Environment.Exit(0);
-                }
-                else{
-                    output.blankline();
-                }
-
-            }
-            
 
 
         }

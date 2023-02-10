@@ -57,7 +57,7 @@ public class Memory{
 
 
     public string wordsLeft(){
-        int counter = 0;
+        int counter = 1;
 
         foreach(string word in _verseout){
             if (word.Contains("_")){
