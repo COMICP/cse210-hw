@@ -1,7 +1,7 @@
 using System;
-public class scripture{
+public class Scripture{
     private string _verse;
-    private reference _ref = new reference();
+    private Reference _ref = new Reference();
     public string getverse(){
         return _verse;
     }
@@ -9,7 +9,7 @@ public class scripture{
         _verse = newverse;
     }
 
-    public reference getref(){
+    public Reference getref(){
         return _ref;
     }
     public string getrefer(){

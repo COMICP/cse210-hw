@@ -1,6 +1,6 @@
 using System;
 
-public class reference{
+public class Reference{
     private string _reference;
     public string getreference(){
         return _reference;
