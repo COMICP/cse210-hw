@@ -6,6 +6,7 @@ class Program
     {
         string choice = "";
         while (choice != "4"){
+            Console.Clear();
 
             Console.WriteLine("1. Start breathing activity");
             Console.WriteLine("2. Start reflecting activity");
@@ -17,17 +18,19 @@ class Program
 
             if (choice == "1"){
                 breathingActivity breath = new breathingActivity();
-
-                breath.startBreathing();
+                breath.StartBreathing();
                 
             }
 
             else if (choice == "2"){
-                Console.WriteLine("2");
+                Reflection reflect = new Reflection();
+
+                reflect.StartReflecting();
             }
 
             else if (choice == "3"){
-                Console.WriteLine("3");
+                List list = new List();
+                list.StartListing();
             }
 
             else if (choice == "4"){

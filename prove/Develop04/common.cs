@@ -6,7 +6,7 @@ public class Common{
 
 
     
-    public int getTime(){
+    public int GetTime(){
         Console.WriteLine("How long would you like for your session in seconds");
         int sessiontime = int.Parse(Console.ReadLine()); 
 
@@ -14,35 +14,63 @@ public class Common{
 
     }
 
-    public string endMessage(int time, string activity){
+    public string EndMessage(int time, string activity){
 
 
         string endMessage = $"You have completed another {time} seconds of {activity}.  ";
 
         Console.WriteLine(endMessage);
 
-        spinner();
+        Spinner();
 
         return endMessage;
     }
 
-    public void spinner(){
+    public void Spinner(int maxcount = 4){
 
         int time = 0;
         string spin = @"|/-\";
 
-        while (time <= 4){
+        while (time <= maxcount){
             time += 1;
             
             
             foreach(char icon in spin){
                 Thread.Sleep(200);
+                Console.Write("\b\b");
+                Console.Write($"{icon} ");
+                
 
-                Console.Write("\b \b \b");
-
-                Console.Write(icon);
+                
             }
         }
 
+    }
+
+
+    
+    public void CountTime(int time){
+        
+        
+        
+        while ( 0 <= time){
+        
+            Console.Write("\b \b \b");
+
+            Console.Write(time);
+
+            Thread.Sleep(1000);
+
+            time = time - 1;
+
+        }
+        Console.WriteLine("");
+
+    }
+
+    public void StartMessage(){
+        Console.Clear();
+        Console.Write("Get ready...");
+        Spinner(5);
     }
 }
