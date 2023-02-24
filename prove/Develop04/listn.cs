@@ -1,7 +1,7 @@
 using System;
 
-public class List{
-    private Common common = new Common();
+public class List : Common{
+    
 
     private List<string> _prompts = new List<string>();
 
@@ -21,9 +21,9 @@ public class List{
 
     public void StartListing(){
         Initialize();
-        common.StartMessage();
+        StartMessage();
         Console.Clear();
-        _maxtime = common.GetTime();
+        _maxtime = GetTime();
 
         Random rando = new Random();
         int prompt = rando.Next(_prompts.Count());
@@ -31,7 +31,7 @@ public class List{
         Console.WriteLine("List as many responses you can to the following prompt:");
         Console.WriteLine(_prompts[prompt]);
         Console.WriteLine("You may begin in: ");
-        common.CountTime(5);
+        CountTime(5);
 
         DateTime startTime = DateTime.Now;
         DateTime futureTime = startTime.AddSeconds(_maxtime);
@@ -44,7 +44,7 @@ public class List{
         }
 
         Console.Write($"You were able to get {count} responses!");
-        common.EndMessage(_maxtime, _name);
+        EndMessage(_maxtime, _name);
     }
 
 }

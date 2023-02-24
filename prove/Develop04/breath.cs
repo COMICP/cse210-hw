@@ -1,27 +1,17 @@
 using System;
 
-public class breathingActivity{
+public class breathingActivity : Common{
     private int _maxtime;
 
     private string _name = "Breathing Activity";
-
-
-
-    private Common common = new Common();
-
-    
-
-
-
-
     public void StartBreathing(){
-        common.StartMessage();
+        StartMessage();
         Console.Clear();
         Console.WriteLine("This activity will help you relax by walking your through breathing in and out slowly. Clear your mind and focus on your breathing.");
         Console.WriteLine("Press enter when ready");
         Console.ReadLine();
         
-        _maxtime = common.GetTime();
+        _maxtime = GetTime();
 
         DateTime startTime = DateTime.Now;
         DateTime futureTime = startTime.AddSeconds(_maxtime);
@@ -35,18 +25,13 @@ public class breathingActivity{
 
             Console.Clear();
             Console.Write("Breath in...");
-            common.CountTime(time);
+            CountTime(time);
 
             Console.Clear();
             Console.Write("Breath out...");
-            common.CountTime(time);
+            CountTime(time);
         }
         
-        common.EndMessage(_maxtime, _name);
-
-
-
-
-
+        EndMessage(_maxtime, _name);
     }
 }

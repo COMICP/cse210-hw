@@ -1,9 +1,9 @@
 using System;
 
-public class Reflection{
+public class Reflection : Common{
     private List<string> _prompts = new List<string>();
     private List<string> _questions = new List<string>();
-    private Common common = new Common();
+
 
     private int _maxtime;
 
@@ -27,12 +27,12 @@ public class Reflection{
 
     public void StartReflecting(){
         Initialize();
-        common.StartMessage();
+        StartMessage();
         Console.Clear();
 
         Console.WriteLine("This activity will help you reflect on times in your life when you have shown strength and resilience. This will help you recognize the power you have and how you can use it in other aspects of your life.");
         
-        _maxtime = common.GetTime();
+        _maxtime = GetTime();
         
 
         Console.WriteLine("Consider the following prompt:");
@@ -46,7 +46,7 @@ public class Reflection{
         Console.WriteLine("Now ponder on each of the following questions as they are related to this experience");
 
         Console.WriteLine("you may begin in: ");
-        common.CountTime(5);
+        CountTime(5);
         DateTime startTime = DateTime.Now;
         DateTime futureTime = startTime.AddSeconds(_maxtime);
 
@@ -58,11 +58,11 @@ public class Reflection{
 
             Console.WriteLine(_questions[quest]);
             
-            common.Spinner();
+            Spinner();
 
 
         }
-        common.EndMessage(_maxtime, _name);
+        EndMessage(_maxtime, _name);
 
     }
 }
