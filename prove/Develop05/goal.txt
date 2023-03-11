@@ -1,0 +1,4 @@
+1200
+simple:simplegoal:100:1:1:1:1
+eternal:eternal goal:200:2147483647:1:2:1
+list:listgoal:300:3:1:3:1:400
