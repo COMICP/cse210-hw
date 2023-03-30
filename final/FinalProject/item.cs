@@ -24,12 +24,12 @@ public class Item : User{
     public void UpdatePrice(){
         
     }
-    public string ShowItem(){
-        if (_ammount < 2){
-            return $"";
+    public string ShowItem(int lowAmmount = 0){
+        if (_ammount < lowAmmount){
+            return $"Name: {_name} | Price: {_price} | *LOW STOCK*";
         }
         else{
-            return $""; 
+            return $"Name: {_name} | Price: {_price}"; 
         }
         
     }
@@ -44,5 +44,11 @@ public class Item : User{
         Console.WriteLine("what is the new price?");
         int newPrice = int.Parse(Console.ReadLine());
         _price = newPrice;
+    }
+    public void SetStock(){
+        Console.WriteLine($"Currently {_ammount} {_name} in stock.");
+        Console.WriteLine("What is the new ammount in stock?");
+        int newAmmount = int.Parse(Console.ReadLine());
+        _ammount = newAmmount;
     }
 }
