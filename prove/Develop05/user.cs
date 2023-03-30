@@ -52,8 +52,7 @@ public class User{
             foreach (Goal g in _goals){
                 outputFile.WriteLine(g.SaveGoal());
             }
-}
-
+        }
     }
     public void AddPoints(int goalPoints){
         _userPoints = _userPoints + goalPoints;
