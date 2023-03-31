@@ -1,7 +1,6 @@
 public class User{
     private string _userInventoryLocation = "inventory.txt";
-    private int _lowNumber = 0;
-
+    
     private List<Item> _userInventory = new List<Item>();
     private ShopList _list = new ShopList();
 
@@ -53,12 +52,22 @@ public class User{
         }
     }
     public void MakeList(){
-        
+        int listInput = 99;
+        while (listInput != 0){
+            Console.WriteLine("Select option:");
+            Console.WriteLine("[1] Show current shopping list");
+            Console.WriteLine("[2] Add item to shopping list");
+            Console.WriteLine("[3] Remove item from shopping list");
+            Console.WriteLine("[4] Get list total");
+            Console.WriteLine("[5] Save shopping list");
+            Console.WriteLine("[0] Return to main menue");
+            
+        }
     }
-    public void ShowStock(int lowAmmout = 0){
-        _lowNumber = lowAmmout;
+    public void ShowStock(){
+        
         foreach (Item i in _userInventory){
-            Console.WriteLine(i.ShowItem(lowAmmout));
+            Console.WriteLine(i.ShowItem());
         }
         Console.WriteLine("Press ENTER to continue");
         Console.ReadLine();
@@ -93,7 +102,17 @@ public class User{
     public void LowStock(){
         Console.WriteLine("Enter low stock ammount:");
         int userInput = int.Parse(Console.ReadLine());
-        ShowStock(userInput);
+
+        foreach (Item i in _userInventory){
+            int amm = i.GetAmmount();
+            
+            if (amm <= userInput){
+                Console.WriteLine(i.ShowItem(userInput));
+            }
+            else{
+                
+            }
+        }
         
 
         
@@ -104,7 +123,7 @@ public class User{
             foreach(Item i in _userInventory){
                 int ammountLeft = i.GetAmmount();
                 if (ammountLeft <= userInput){
-                    _list.AddListItem(i);
+                    
                 }
             }
         }

@@ -52,7 +52,7 @@ class Program
         Console.WriteLine("[3] Use item");
         Console.WriteLine("[4] Edit price of item");
         Console.WriteLine("[5] Show low stock");
-        Console.WriteLine("[6] Make shoping list");
+        Console.WriteLine("[6] Manage shopping list");
         Console.WriteLine("[7] Load inventory");
         Console.WriteLine("[8] Save inventory");
         Console.WriteLine("[0] Quit");

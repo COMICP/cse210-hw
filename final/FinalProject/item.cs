@@ -1,7 +1,7 @@
 public class Item : User{
-    private string _name = "";
-    private int _price = 0;
-    private int _ammount = 0;
+    private string _name ;
+    private int _price ;
+    private int _ammount ;
     public Item(string name, int price, int ammount){
         _name = name;
         _price = price;
@@ -23,7 +23,7 @@ public class Item : User{
     }
 
     public string ShowItem(int lowAmmount = 0){
-        if (_ammount < lowAmmount){
+        if (_ammount <= lowAmmount){
             return $"Name: {_name} | Price: {_price} | Stock: {_ammount} *LOW STOCK*";
         }
         else{

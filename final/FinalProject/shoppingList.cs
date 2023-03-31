@@ -1,6 +1,9 @@
-public class ShopList {
+public class ShopList : User{
     private List<Item> _shoppingList = new List<Item>();
-    private string _shopFile = "";
+    private string _shopFile;
+    public ShopList(string shopFile = "Shopping-list"){
+        _shopFile = shopFile;
+    }
     public void AddListItem(Item item)
     {
         _shoppingList.Add(item);
@@ -24,3 +27,4 @@ public class ShopList {
     }
     
 }
+
