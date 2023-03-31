@@ -1,20 +1,26 @@
-public class ShopList : User{
-    protected List<Item> _shoppingList = new List<Item>();
+public class ShopList {
+    private List<Item> _shoppingList = new List<Item>();
+    private string _shopFile = "";
+    public void AddListItem(Item item)
+    {
+        _shoppingList.Add(item);
+    }
     public int GetTotal(){
-        int sum = 0;
-        foreach (Item i in _shoppingList){
-            sum = sum + i.GetPrice();
+        int total = 0;
+        foreach(Item i in _shoppingList){
+            total += i.GetPrice();
         }
-        return sum;
+        return total;
     }
     public void ShowList(){
-
+        foreach (Item i in _shoppingList){
+            i.ShowItem();
+        }
     }
     public void SaveList(){
+        Console.WriteLine("What file do you want to save the shopping list to?");
+        _shopFile = Console.ReadLine();
 
-    }
-    public override void AddItem(){
-        
     }
     
 }

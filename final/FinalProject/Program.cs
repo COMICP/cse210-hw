@@ -19,10 +19,10 @@ class Program
                 currentUser.AddItem();
             }
             else if (userChoice == 3){//use item
-                currentUser.UseItem();
+                currentUser.UseItems();
             }
             else if (userChoice ==4 ){//price
-                currentUser.SetPrice();
+                currentUser.SetPrices();
             }
             else if (userChoice == 5){//low stock
                 currentUser.LowStock();
@@ -44,11 +44,6 @@ class Program
                 Console.Write("Please enter valid input");
             }
         }
-
-        
-        
-
-
     }
     public static void BuildHome(){
         Console.WriteLine("Welcome! Please make a selection of what you would like to do.");

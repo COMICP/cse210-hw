@@ -1,13 +1,11 @@
 public class User{
+    protected List<Item> _userInventory = new List<Item>();
+    protected ShopList _list = new ShopList();
     private string _userInventoryLocation = "inventory.txt";
-    private int _lowNumber = 0;
-
-    private List<Item> _userInventory = new List<Item>();
-    private ShopList _list = new ShopList();
 
     public void load(){
-        
-        string filename = _userInventoryLocation;
+        Console.WriteLine("What is the filename that you want to load from?");
+        string filename = Console.ReadLine();
         string[] lines = System.IO.File.ReadAllLines(filename);
         
         foreach (string line in lines){
@@ -21,7 +19,9 @@ public class User{
     public void Save(){
         
         string filename = _userInventoryLocation;
-        
+        filename = Console.ReadLine();
+
+
         using (StreamWriter outputFile = new StreamWriter(filename))
         {
             
@@ -31,7 +31,7 @@ public class User{
         }
     }
 
-    public void AddItem(){
+    public virtual void AddItem(){
         Console.WriteLine("Would you like to do.");
         Console.WriteLine("[1] Increase stock");
         Console.WriteLine("[2] Add Item");
@@ -52,19 +52,14 @@ public class User{
             return;
         }
     }
-    public void MakeList(){
-        
-    }
-    public void ShowStock(int lowAmmout = 0){
-        _lowNumber = lowAmmout;
+
+    public void ShowStock(){
         foreach (Item i in _userInventory){
-            Console.WriteLine(i.ShowItem(lowAmmout));
+            Console.WriteLine(i.ShowItem());
         }
-        Console.WriteLine("Press ENTER to continue");
-        Console.ReadLine();
 
     }
-    public void UseItems(){
+    public virtual void UseItem(){
         Console.WriteLine("What item do you want to use?");
         int count = 0;
         foreach(Item i in _userInventory){
@@ -77,7 +72,7 @@ public class User{
         
         _userInventory[userInput].UseItem();
     }
-    public void SetPrices(){
+    public virtual void SetPrice(){
         Console.WriteLine("What item do you want to update price?");
         int count = 0;
         foreach(Item i in _userInventory){
@@ -90,25 +85,7 @@ public class User{
         
         _userInventory[userInput].SetPrice();
     }
-    public void LowStock(){
-        Console.WriteLine("Enter low stock ammount:");
-        int userInput = int.Parse(Console.ReadLine());
-        ShowStock(userInput);
-        
 
-        
-        Console.WriteLine("");
-        Console.WriteLine("Would you like to add these to shopping list? [Y/N]");
-        string userResponceStock = Console.ReadLine();
-        if (userResponceStock == "Y"){
-            foreach(Item i in _userInventory){
-                int ammountLeft = i.GetAmmount();
-                if (ammountLeft <= userInput){
-                    _list.AddListItem(i);
-                }
-            }
-        }
-    }
     public void NewItem(){
         Console.WriteLine("What is the name of the item?");
         string newItemName = Console.ReadLine();
