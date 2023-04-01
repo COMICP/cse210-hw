@@ -1,59 +1,67 @@
 public class User{
     private string _userInventoryLocation = "inventory.txt";
     
-    private List<Item> _userInventory = new List<Item>();
-    private ShopList _list = new ShopList();
+    private ItemList _userInventory = new ItemList();
+    private ShopList _shopList = new ShopList();
 
-    public void load(){
-        
-        string filename = _userInventoryLocation;
-        string[] lines = System.IO.File.ReadAllLines(filename);
-        
-        foreach (string line in lines){
-
-            string[] parts = line.Split(":");
-            Item item = new Item(parts[0], int.Parse(parts[1]), int.Parse(parts[2]));
-            _userInventory.Add(item);
-        }
+    public void SaveInven(){
+        _userInventory.Save(_userInventoryLocation);
     }
-
-    public void Save(){
-        
-        string filename = _userInventoryLocation;
-        
-        using (StreamWriter outputFile = new StreamWriter(filename))
-        {
-            
-            foreach (Item i in _userInventory){
-                outputFile.WriteLine(i.SaveItem());
-            }
-        }
+    public void LoadInven(){
+        _userInventory.Load(_userInventoryLocation);
     }
-
-    public void AddItem(){
+    public void ShowStock(){
+        _userInventory.Show();
+    }
+    public void ManageList(){
         Console.WriteLine("Would you like to do.");
         Console.WriteLine("[1] Increase stock");
         Console.WriteLine("[2] Add Item");
         Console.WriteLine("[3] Remove Item");
-        Console.WriteLine("[ENTER] Return Home");
+        Console.WriteLine("[0] Return Home");
+
         int rez = int.Parse(Console.ReadLine());
 
         if (rez == 1){
-            AdjustStock();
+            _userInventory.AdjustStock();
         }
         else if (rez == 2){
-            NewItem();
+            _userInventory.NewItem();
         }
         else if (rez == 3){
-            RemoveItem();
+            _userInventory.RemoveItem();
         }
         else{
             return;
         }
     }
+    public void UseItems(){
+        _userInventory.Use();
+    }
+    public void SetPrices(){
+        _userInventory.SetPrices();
+    }
+    public void LowStock(){
+        Console.WriteLine("Enter low stock ammount:");
+        int userInput = int.Parse(Console.ReadLine());
+        _userInventory.LowStock(userInput);
+
+        Console.WriteLine("");
+        Console.WriteLine("Would you like to add these to shopping list? [Y/N]");
+        string userResponceStock = Console.ReadLine();
+
+        if (userResponceStock == "Y"){
+            List<Item> lowList = _userInventory.LowList(userInput);
+            foreach(Item i in lowList){
+                _shopList.AddItem(i);
+            }
+        }
+    }
+    
     public void MakeList(){
         int listInput = 99;
         while (listInput != 0){
+            Console.Clear();
             Console.WriteLine("Select option:");
             Console.WriteLine("[1] Show current shopping list");
             Console.WriteLine("[2] Add item to shopping list");
@@ -61,109 +69,39 @@ public class User{
             Console.WriteLine("[4] Get list total");
             Console.WriteLine("[5] Save shopping list");
             Console.WriteLine("[0] Return to main menue");
-            
-        }
-    }
-    public void ShowStock(){
-        
-        foreach (Item i in _userInventory){
-            Console.WriteLine(i.ShowItem());
-        }
-        Console.WriteLine("Press ENTER to continue");
-        Console.ReadLine();
-
-    }
-    public void UseItems(){
-        Console.WriteLine("What item do you want to use?");
-        int count = 0;
-        foreach(Item i in _userInventory){
-            
-            Console.Write($"[{count}]");
-            Console.WriteLine(i.ShowItem());
-            count += 1;
-        }
-        int userInput = int.Parse(Console.ReadLine());
-        
-        _userInventory[userInput].UseItem();
-    }
-    public void SetPrices(){
-        Console.WriteLine("What item do you want to update price?");
-        int count = 0;
-        foreach(Item i in _userInventory){
-            
-            Console.Write($"[{count}]");
-            Console.WriteLine(i.ShowItem());
-            count += 1;
-        }
-        int userInput = int.Parse(Console.ReadLine());
-        
-        _userInventory[userInput].SetPrice();
-    }
-    public void LowStock(){
-        Console.WriteLine("Enter low stock ammount:");
-        int userInput = int.Parse(Console.ReadLine());
-
-        foreach (Item i in _userInventory){
-            int amm = i.GetAmmount();
-            
-            if (amm <= userInput){
-                Console.WriteLine(i.ShowItem(userInput));
+            listInput = int.Parse(Console.ReadLine());
+            if (listInput == 1){
+                _shopList.Show();
             }
-            else{
-                
+            else if (listInput == 2){
+                Console.WriteLine("What item do you want to add");
+                _userInventory.DisplayChoices();
+                int userInput = int.Parse(Console.ReadLine());
+                _shopList.AddItem(_userInventory.Single(userInput));
             }
-        }
-        
-
-        
-        Console.WriteLine("");
-        Console.WriteLine("Would you like to add these to shopping list? [Y/N]");
-        string userResponceStock = Console.ReadLine();
-        if (userResponceStock == "Y"){
-            foreach(Item i in _userInventory){
-                int ammountLeft = i.GetAmmount();
-                if (ammountLeft <= userInput){
-                    
-                }
+            else if (listInput == 3){
+                _shopList.RemoveItem();
             }
-        }
-    }
-    public void NewItem(){
-        Console.WriteLine("What is the name of the item?");
-        string newItemName = Console.ReadLine();
-        Console.WriteLine("What is the price of the item?");
-        int newItemPrice = int.Parse(Console.ReadLine());
-        Console.WriteLine("How many items are you adding to inventory?");
-        int newItemAmmount = int.Parse(Console.ReadLine());
+            else if (listInput == 4){
+                int totalPrice = _shopList.GetTotalPrice();
+                Console.WriteLine($"The list total is {totalPrice}");
+            }
+            else if (listInput == 4){
+                Console.WriteLine($"The total is {_shopList.GetTotalPrice()}");
+            }
+            else if (listInput == 5){
+                Console.WriteLine("Where do you want to save the list");
+                string FileLocation = Console.ReadLine();
+                _shopList.Save(FileLocation);
+            }
+            else if (listInput == 0){
+                return;
+            }
 
-        Item newItemAdd = new Item(newItemName, newItemPrice, newItemAmmount);
-
-        _userInventory.Add(newItemAdd);
-    }
-    public void RemoveItem(){
-        Console.WriteLine("What item do you want to remove?");
-        int count = 0;
-        foreach(Item i in _userInventory){
-            
-            Console.Write($"[{count}]");
-            Console.WriteLine(i.ShowItem());
-            count += 1;
+            Console.WriteLine("press ENTER to continue");
         }
-        int userInput = int.Parse(Console.ReadLine());
-        
-        _userInventory.RemoveAt(userInput);
     }
-    public void AdjustStock(){
-        Console.WriteLine("What item do you want to adjust stock?");
-        int count = 0;
-        foreach(Item i in _userInventory){
-            
-            Console.Write($"[{count}]");
-            Console.WriteLine(i.ShowItem());
-            count += 1;
-        }
-        int userInput = int.Parse(Console.ReadLine());
-        
-        _userInventory[userInput].SetStock();
-    }
+    
+    
+    
 }

@@ -6,17 +6,18 @@ class Program
     {
         User currentUser = new User();
         int userChoice = 99;
+        currentUser.LoadInven();
         while(userChoice != 0){
             Console.Clear();
             BuildHome();
             userChoice = int.Parse(Console.ReadLine());
-
+            
 
             if (userChoice == 1){ //show stock
                 currentUser.ShowStock();
             }
             else if (userChoice == 2){//add item
-                currentUser.AddItem();
+                currentUser.ManageList();
             }
             else if (userChoice == 3){//use item
                 currentUser.UseItems();
@@ -30,11 +31,9 @@ class Program
             else if (userChoice == 6){//shopping list
                 currentUser.MakeList();
             }
-            else if (userChoice == 7){//load
-                currentUser.load();
-            }
-            else if (userChoice == 8){//save
-                currentUser.Save();
+            
+            else if (userChoice == 7){//save
+                currentUser.SaveInven();
             }
             else if (userChoice == 0){//quit
                 
@@ -53,8 +52,7 @@ class Program
         Console.WriteLine("[4] Edit price of item");
         Console.WriteLine("[5] Show low stock");
         Console.WriteLine("[6] Manage shopping list");
-        Console.WriteLine("[7] Load inventory");
-        Console.WriteLine("[8] Save inventory");
+        Console.WriteLine("[7] Save inventory");
         Console.WriteLine("[0] Quit");
     }
 } 

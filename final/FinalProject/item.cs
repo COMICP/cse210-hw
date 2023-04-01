@@ -1,4 +1,4 @@
-public class Item : User{
+public class Item {
     private string _name ;
     private int _price ;
     private int _ammount ;
